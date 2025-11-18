@@ -21,18 +21,24 @@ const getBody = (req, callback) => {
 };
 
 // here, you could declare one or more variables to store what comes back from the form.
-let item = "Enter something below.";
+let item = "Add to your Bucket list!";
+let input = "";
+let title = "";
+let note = "";
 
 // here, you can change the form below to modify the input fields and what is displayed.
 // This is just ordinary html with string interpolation.
 const form = () => {
   return `
   <body>
-  <p>${item}</p>
+  <h1>${item}</h1>
+  <p>${note}</p>
   <form method="POST">
   <input name="item"></input>
   <button type="submit">Submit</button>
   </form>
+  <h1>${title}</h1>
+  <ul>${input}</ul>
   </body>
   `;
 };
@@ -45,7 +51,45 @@ const server = http.createServer((req, res) => {
       console.log("The body of the post is ", body);
       // here, you can add your own logic
       if (body["item"]) {
-        item = body["item"];
+        item = "Add to your Bucket list!";
+        title = "Bucket List";
+        input += "<li>" + body["item"] + "</li>";
+        let rand = Math.round(Math.random() * 9 + 1);
+        console.log(rand);
+        switch (rand) {
+          case 1:
+            note = "Yolo";
+            break;
+          case 2:
+            note = "Deciding nothing is a choice";
+            break;
+          case 3:
+            note = "A year from now you may wish you had started today";
+            break;
+          case 4:
+            note = "Adventure may hurt you, but monotony will kill you";
+            break;
+          case 5:
+            note = "Courage is being scared to death, but saddling up anyway";
+            break;
+          case 6:
+            note = "Goals that are not written down are just wishes";
+            break;
+          case 7:
+            note = "I haven't been everywhere, but it's on my list";
+            break;
+          case 8:
+            note = "In the end, it's not the years in your life that count. It's the life in your years";
+            break;
+          case 9:
+            note = "Live as if you were to die tomorrow. Learn as if you were to live forever";
+            break;
+          case 10:
+            note = "Never tell me the sky's the limit when there are footprints on the moon";
+            break;
+          default:
+           note = "error :(";
+        }
       } else {
         item = "Nothing was entered.";
       }
