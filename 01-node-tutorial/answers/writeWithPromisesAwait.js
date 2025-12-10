@@ -16,7 +16,7 @@ const writer = async () => {
 
 const reader = async () => {
   try {
-    result = await readFile(filePath, "utf8");
+    const result = await readFile(filePath, "utf8");
     console.log(result);
   } catch (err) {
     console.log("An error occurred: ", err);

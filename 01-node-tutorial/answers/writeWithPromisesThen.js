@@ -5,6 +5,7 @@ const path = require("path");
 const filePath = path.resolve(__dirname, "temp.txt");
 
 const writer = async () => {
+ 
   console.log("1");
   writeFile(filePath, `Hello 1a` + lineBreak)
     .then(() => {
@@ -14,6 +15,15 @@ const writer = async () => {
     .then(() => {
       console.log("3");
       return writeFile(filePath, `Hello 3a` + lineBreak, { flag: "a" });
+    })
+    .then(() => {
+      
+      return readFile(filePath, "utf8");
+      
+    })
+    .then((a) => {
+      
+      return console.log(a);
     })
 
     .catch((error) => {

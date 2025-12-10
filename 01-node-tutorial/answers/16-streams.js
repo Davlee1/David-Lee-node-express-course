@@ -1,4 +1,4 @@
-const filePath = "./01-node-tutorial/content/big.txt";
+const filePath = "../content/big.txt";
 
 const { createReadStream } = require("fs");
 // default 64kb
