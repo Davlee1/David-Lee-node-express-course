@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require("path");
+//const path = require("path");
 const { products } = require("./data");
 const app = express();
 
@@ -15,8 +15,8 @@ app.get("/api/v1/products", (req, res) => {
 app.get("/api/v1/products/:productID", (req, res) => {
   const idToFind = parseInt(req.params.productID);
   const product = products.find((p) => p.id === idToFind);
-  if (idToFind > 4 || idToFind <= 0) {
-    res.json({ message: "That product was not found." });
+  if (!product) {
+    return res.status(404).send("That product was not found.");
   } else {
     res.json(product);
   }
@@ -32,21 +32,19 @@ app.get("/api/v1/query", (req, res) => {
     });
   }
   if (limit) {
-    sortedResults = sortedResults.Array.slice(0, limitToFind - 1);
+    sortedResults = sortedResults.slice(0, parseInt(limitToFind));
   }
 
-    if (maxcost) {
+  if (maxcost) {
     sortedResults = sortedResults.filter((product) => {
-      return product.price <= maxcost;
+      return product.price <= Number(maxcost);
     });
   }
   if (sortedResults.length < 1) {
-    res.status(200).send('no products matched your search');
+    return res.status(200).send("no products matched your search");
   }
-  res.status(200).json(sortedResults)
+  res.status(200).json(sortedResults);
 });
-
-
 
 app.all("*", (req, res) => {
   res.status(404).send("404 page not found");
