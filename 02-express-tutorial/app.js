@@ -1,5 +1,5 @@
 const express = require("express");
-//const path = require("path");
+const path = require("path");
 const { products } = require("./data");
 const app = express();
 
@@ -32,7 +32,7 @@ app.get("/api/v1/query", (req, res) => {
     });
   }
   if (limit) {
-    sortedResults = sortedResults.slice(0, parseInt(limitToFind));
+    sortedResults = sortedResults.slice(0, parseInt(limit));
   }
 
   if (maxcost) {
