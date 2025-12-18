@@ -13,11 +13,12 @@ const logger = (req, res, next) => {
 };
 //
 
-app.use(express.static("./public"));
+app.use(logger);
+app.use(express.static("./methods-public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/api/v1/people", router);
-app.use(logger);
+
 
 app.get("/api/v1/test", (req, res) => {
   res.json({ message: "It worked!" });

@@ -1,7 +1,7 @@
-const { people } = require("./data");
+const { people } = require("../data.js");
 
 const addPerson = (req, res) => {
-  if (!req.body) {
+  if (!req.body.name) {
     res.status(400).json({ success: false, message: "Please provide a name" });
   } else {
     people.push({ id: people.length + 1, name: req.body.name });
@@ -25,8 +25,13 @@ const getPerson = (req, res) => {
 
 const deletePerson = (req, res) => {
   const idToFind = parseInt(req.params.personID);
-  const person = people.filter((p) => p.id !== idToFind);
-  res.json(person);
+  const person = people.find((p) => p.id === idToFind);
+  if (!person) {
+    return res.status(404).json({ success: false, message: `No person with id ${idToFind}` });
+  } else {
+    people = people.filter((p) => p.id !== idToFind);
+    res.status(200).json({ success: true, data: people });
+  }
 };
 
 module.exports = { addPerson, getPeople, getPerson, deletePerson };
