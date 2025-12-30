@@ -1,4 +1,4 @@
-const { people } = require("../data.js");
+let { people } = require("../data.js");
 
 const addPerson = (req, res) => {
   if (!req.body.name) {
@@ -30,8 +30,8 @@ const deletePerson = (req, res) => {
     return res.status(404).json({ success: false, message: `No person with id ${idToFind}` });
   } else {
 
-    let respeople = people.filter((p) => p.id !== idToFind);
-    res.status(200).json({ success: true, data: respeople });
+    let people = people.filter((p) => p.id !== idToFind);
+    res.status(200).json({ success: true, data: people });
   }
 };
 
