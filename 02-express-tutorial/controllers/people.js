@@ -29,8 +29,9 @@ const deletePerson = (req, res) => {
   if (!person) {
     return res.status(404).json({ success: false, message: `No person with id ${idToFind}` });
   } else {
-    people = people.filter((p) => p.id !== idToFind);
-    res.status(200).json({ success: true, data: people });
+
+    let respeople = people.filter((p) => p.id !== idToFind);
+    res.status(200).json({ success: true, data: respeople });
   }
 };
 
