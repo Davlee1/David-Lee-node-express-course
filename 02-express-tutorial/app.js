@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { products, people } = require("./data");
-const { router } = require("./routes/people.js");
+const router = require("./routes/people.js");
 const app = express();
 
 const logger = (req, res, next) => {

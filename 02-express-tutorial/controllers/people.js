@@ -31,14 +31,14 @@ const deletePerson = (req, res) => {
       .status(404)
       .json({ success: false, message: `No person with id ${idToFind}` });
   } else {
-    let people = people.filter((p) => p.id !== idToFind);
+    people = people.filter((p) => p.id !== idToFind);
     res.status(200).json({ success: true, data: people });
   }
 };
 
 const updatePerson = (req, res) => {
   if (!req.body.name) {
-    res.status(400).json({ success: false, message: "Please provide a name" });
+    return res.status(400).json({ success: false, message: "Please provide a name" });
   }
   const idToFind = parseInt(req.params.personID);
   const person = people.find((p) => p.id === idToFind);
@@ -48,7 +48,7 @@ const updatePerson = (req, res) => {
       .status(404)
       .json({ success: false, message: `No person with id ${idToFind}` });
   } else {
-    people[idToFind] = req.body.name;
+    person.name = req.body.name;
     res.status(200).json({ success: true, data: people });
   }
 };
