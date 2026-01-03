@@ -1,9 +1,24 @@
 const express = require("express");
 const path = require("path");
-const { products } = require("./data");
+const { products, people } = require("./data");
+const router = require("./routes/people.js");
 const app = express();
 
-app.use(express.static("./public"));
+const logger = (req, res, next) => {
+  const method = req.method;
+  const url = req.url;
+  const time = new Date();
+  console.log(method, url, time);
+  next();
+};
+//
+
+app.use(logger);
+app.use(express.static("./methods-public"));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use("/api/v1/people", router);
+
 
 app.get("/api/v1/test", (req, res) => {
   res.json({ message: "It worked!" });
@@ -11,6 +26,12 @@ app.get("/api/v1/test", (req, res) => {
 app.get("/api/v1/products", (req, res) => {
   res.json(products);
 });
+
+/*
+app.get("/api/v1/people", (req, res) => {
+  res.json(people);
+});
+*/
 
 app.get("/api/v1/products/:productID", (req, res) => {
   const idToFind = parseInt(req.params.productID);
@@ -45,6 +66,17 @@ app.get("/api/v1/query", (req, res) => {
   }
   res.status(200).json(sortedResults);
 });
+
+/*
+app.post("/api/people", (req, res) => {
+  if (!req.body) {
+    res.status(400).json({ success: false, message: "Please provide a name" });
+  } else {
+    people.push({ id: people.length + 1, name: req.body.name });
+    res.status(201).json({ success: true, name: req.body.name });
+  }
+});
+*/
 
 app.all("*", (req, res) => {
   res.status(404).send("404 page not found");
