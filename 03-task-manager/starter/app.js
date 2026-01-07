@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 const tasks = require("./routes/tasks.js");
 const connectDB = require("./db/connect");
-const { loadEnvFile } = require("node:process");
+
 // Loads environment variables from the default .env file
-require("dotenv");
+require("dotenv").config();
 
 //middlewarwe
 app.use(express.static("./public"));

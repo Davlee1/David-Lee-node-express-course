@@ -9,15 +9,16 @@ const createTask = async (req, res) => {
   res.status(201).json({ task });
 };
 
-const getTask = (req, res) => {
-  res.json({ id: req.params.id });
+const getTask = async (req, res) => {
+  const task = await Task.findById({ id: req.params.id });
+  res.status(201).json({ task });
 };
 
-const updateTask = (req, res) => {
+const updateTask = async (req, res) => {
   res.send("update task");
 };
 
-const deleteTask = (req, res) => {
+const deleteTask = async (req, res) => {
   res.send("delete task");
 };
 
