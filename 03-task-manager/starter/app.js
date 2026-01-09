@@ -5,23 +5,16 @@ const connectDB = require("./db/connect");
 
 // Loads environment variables from the default .env file
 require("dotenv").config();
-
+const notFound = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
 //middlewarwe
 app.use(express.static("./public"));
 app.use(express.json());
 
 //routes
-app.get("/hello", (req, res) => {
-  res.send("Task Manager App");
-});
-
 app.use("/api/v1/tasks", tasks);
+app.use(notFound);
 
-//app.get('api/v1/tasks')
-//app.post('api/v1/tasks')
-//app.get('api/v1/tasks/:id')
-//app.patch('api/v1/tasks/:id')
-//app.delete('api/v1/tasks/:id')
 
 const port = 3000;
 
