@@ -2,26 +2,19 @@ const express = require("express");
 const app = express();
 const tasks = require("./routes/tasks.js");
 const connectDB = require("./db/connect");
-const { loadEnvFile } = require("node:process");
-// Loads environment variables from the default .env file
-require("dotenv");
 
+// Loads environment variables from the default .env file
+require("dotenv").config();
+const notFound = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
 //middlewarwe
 app.use(express.static("./public"));
 app.use(express.json());
 
 //routes
-app.get("/hello", (req, res) => {
-  res.send("Task Manager App");
-});
-
 app.use("/api/v1/tasks", tasks);
-
-//app.get('api/v1/tasks')
-//app.post('api/v1/tasks')
-//app.get('api/v1/tasks/:id')
-//app.patch('api/v1/tasks/:id')
-//app.delete('api/v1/tasks/:id')
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const port = 3000;
 
