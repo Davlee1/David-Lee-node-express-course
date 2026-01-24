@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const logon = async (req, res) => {
   const { name, password } = req.body;
-  if (!username || !password) {
+  if (!name || !password) {
     return res
       .status(200)
       .json({ message: "Please provide email and password" });
